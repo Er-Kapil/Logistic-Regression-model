@@ -14,13 +14,24 @@ class logistic_regression:
         # Initiating the weight value and bias value
         self.w=np.zeros(self.n)
         self.b=0
-        self.x=X
-        self.y=Y
+        self.X=X
+        self.Y=Y
 
         # Implementing gradient descent
         for i in range(epochs):
             self.update_weights()
     def update_weights(self):
-        pass
+        Y_cap = 1 / (1+np.exp(-(self.X.dot(self.w)+self.b))) #wx+b
+
+        # derivative
+        dw = (1/self.m)*np.dot(self.X.T,(Y_cap - self.Y))
+        db = (1/self.m)*np.sum(Y_cap -self.Y)
+
+        # updating the weights using gradient descent
+        self.w = self.w - self.learning_rate*dw
+        self.b = self.b - self.learning_rate*db
+
     def predict(self):
-        pass
+        Y_pred = 1 / (1+np.exp(-(self.X.dot(self.w)+self.b)))
+        Y_pred = np.where(Y_pred>0.5,1,0)
+        return Y_pred
