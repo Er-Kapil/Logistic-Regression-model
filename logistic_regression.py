@@ -18,7 +18,7 @@ class logistic_regression:
         self.Y=Y
 
         # Implementing gradient descent
-        for i in range(epochs):
+        for i in range(self.epochs):
             self.update_weights()
     def update_weights(self):
         Y_cap = 1 / (1+np.exp(-(self.X.dot(self.w)+self.b))) #wx+b
